@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { useNav } from "../../hooks/nav";
-import Search from "../search/index.vue";
+// import Search from "../search/index.vue";
 import Notice from "../notice/index.vue";
 import { templateRef } from "@vueuse/core";
 import SidebarItem from "./sidebarItem.vue";
@@ -11,27 +11,29 @@ import { useRoute, useRouter } from "vue-router";
 import { deviceDetection } from "/@/utils/deviceDetection";
 import { watch, nextTick, onMounted, getCurrentInstance } from "vue";
 import { usePermissionStoreHook } from "/@/store/modules/permission";
-import globalization from "/@/assets/svg/globalization.svg?component";
+// import globalization from "/@/assets/svg/globalization.svg?component";
+import logo from "/@/assets/svg/logo.svg?component";
+import emergency from "/@/assets/svg/emergency.svg?component";
 
 const route = useRoute();
 const { locale, t } = useI18n();
 const routers = useRouter().options.routes;
 const menuRef = templateRef<ElRef | null>("menu", null);
-const instance =
-  getCurrentInstance().appContext.config.globalProperties.$storage;
+// const instance =
+//   getCurrentInstance().appContext.config.globalProperties.$storage;
 const title =
   getCurrentInstance().appContext.config.globalProperties.$config?.Title;
 
 const {
   logout,
   backHome,
-  onPanel,
+  // onPanel,
   changeTitle,
   handleResize,
   menuSelect,
   username,
-  avatarsStyle,
-  getDropdownItemStyle
+  avatarsStyle
+  // getDropdownItemStyle
 } = useNav();
 
 onMounted(() => {
@@ -54,23 +56,24 @@ watch(
   }
 );
 
-function translationCh() {
-  instance.locale = { locale: "zh" };
-  locale.value = "zh";
-  handleResize(menuRef.value);
-}
+// function translationCh() {
+//   instance.locale = { locale: "zh" };
+//   locale.value = "zh";
+//   handleResize(menuRef.value);
+// }
 
-function translationEn() {
-  instance.locale = { locale: "en" };
-  locale.value = "en";
-  handleResize(menuRef.value);
-}
+// function translationEn() {
+//   instance.locale = { locale: "en" };
+//   locale.value = "en";
+//   handleResize(menuRef.value);
+// }
 </script>
 
 <template>
   <div class="horizontal-header">
     <div class="horizontal-header-left" @click="backHome">
-      <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" />
+      <!-- <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" /> -->
+      <logo style="width: 50px; height: 36.21px" />
       <h4>{{ title }}</h4>
     </div>
     <el-menu
@@ -89,14 +92,19 @@ function translationEn() {
       />
     </el-menu>
     <div class="horizontal-header-right">
+      <div class="external-link">
+        <emergency
+          style="width: 20px; height: 20px; color: red; font-size: 12px"
+        />应急指挥中心
+      </div>
       <!-- 菜单搜索 -->
-      <Search />
+      <!-- <Search /> -->
       <!-- 通知 -->
       <Notice id="header-notice" />
       <!-- 全屏 -->
       <screenfull id="header-screenfull" v-show="!deviceDetection()" />
       <!-- 国际化 -->
-      <el-dropdown id="header-translation" trigger="click">
+      <!-- <el-dropdown id="header-translation" trigger="click">
         <globalization />
         <template #dropdown>
           <el-dropdown-menu class="translation">
@@ -118,7 +126,7 @@ function translationEn() {
             >
           </el-dropdown-menu>
         </template>
-      </el-dropdown>
+      </el-dropdown> -->
       <!-- 退出登陆 -->
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
@@ -137,18 +145,36 @@ function translationEn() {
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <span
+      <!-- <span
         class="el-icon-setting"
         :title="t('buttons.hssystemSet')"
         @click="onPanel"
       >
         <IconifyIconOffline icon="setting" />
-      </span>
+      </span> -->
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.external-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 40px;
+  border-radius: 6px;
+  background: #0067cc;
+  font-family: MicrosoftYaHei;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 21px;
+  letter-spacing: 0px;
+  color: #fafafa;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
 .translation {
   ::v-deep(.el-dropdown-menu__item) {
     padding: 5px 40px;

@@ -14,13 +14,13 @@ const themeColors = {
   },
   light: {
     color: "#409EFF",
-    subMenuActiveText: "#409eff",
+    subMenuActiveText: "#333233",
     menuBg: "#fff",
     menuHover: "#e0ebf6",
     subMenuBg: "#fff",
     subMenuActiveBg: "#e0ebf6",
     navTextColor: "#7a80b4",
-    menuText: "#7a80b4",
+    menuText: "#5F6372",
     sidebarLogo: "#fff",
     menuTitleHover: "#000",
     menuActiveBefore: "#4091f7"
